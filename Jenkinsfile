@@ -17,6 +17,8 @@ pipeline {
 				script {
 					dockerImage.inside {
 						sh 'psql --version'
+						sh 'python3 --version'
+						sh 'pip3 --version'
 					}
 				}
 			}
