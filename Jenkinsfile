@@ -19,6 +19,7 @@ pipeline {
 						sh 'psql --version'
 						sh 'python3 --version'
 						sh 'pip3 --version'
+						sh 'pip3 freeze'
 					}
 				}
 			}
