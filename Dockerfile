@@ -1,3 +1,3 @@
 FROM ubuntu:20.04
-RUN apt update && apt upgrade -y
-RUN apt postgresql-client -y 
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install postgresql-client -y 
