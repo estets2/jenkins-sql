@@ -3,9 +3,9 @@ pipeline {
 		imagename = "estets2/python-sql"
 		dockerImage = ''
 	}
+	agent any
+	checkout scm
 	stages {
-		agent any
-		checkout scm
 		stage('Building image') {
 			steps{
 				script {
