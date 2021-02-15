@@ -15,13 +15,15 @@ pipeline {
 		}
 		stage('Test image') {
 			steps {
-				dockerImage.inside {
-					sh 'psql --version'
+				script {
+					dockerImage.inside {
+						sh 'psql --version'
+					}
 				}
 			}
 		}
 		stage('Remove Unused docker image') {
-			steps{
+			steps {
 				sh "docker rmi $imagename:latest"
 			}
 		}
