@@ -4,7 +4,6 @@ pipeline {
 		dockerImage = ''
 	}
 	agent any
-	checkout scm
 	stages {
 		stage('Building image') {
 			steps{
