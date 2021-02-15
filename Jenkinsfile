@@ -4,18 +4,18 @@ pipeline {
     dockerImage = ''
   }
   agent any
-  stages {
-    stage('Cloning Git') {
-      steps {
-        checkout scm
-      }
-    }
+  checkout scm
     stage('Building image') {
       steps{
         script {
           dockerImage = docker.build imagename
         }
       }
+    }
+    stage('Test image') {
+        dockerImage.inside {
+            sh 'psql --version'
+        }
     }
     stage('Remove Unused docker image') {
       steps{
