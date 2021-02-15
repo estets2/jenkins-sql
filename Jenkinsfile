@@ -13,9 +13,11 @@ pipeline {
       }
     }
     stage('Test image') {
+      steps{
         dockerImage.inside {
             sh 'psql --version'
         }
+      }
     }
     stage('Remove Unused docker image') {
       steps{
