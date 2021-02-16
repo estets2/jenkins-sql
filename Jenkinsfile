@@ -27,7 +27,9 @@ pipeline {
 
 		stage('Push docker image') {
 			steps {
-				dockerImage.push("latest")
+				script {
+					dockerImage.push("latest")
+				}
 			}
 		}
 		stage('Remove Unused docker image') {
