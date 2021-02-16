@@ -27,6 +27,7 @@ pipeline {
     stage('Push docker image') {
       steps {
         script {
+          docker login docker.io
           dockerImage.push("latest")
         }
 
