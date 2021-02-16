@@ -27,9 +27,7 @@ pipeline {
 
 		stage('Push docker image') {
 			steps {
-				docker.withRegistry('https://registry.hub.docker.com', '97bad7f7-5fa5-42ef-a13e-595d2884a1f1') {
-					dockerImage.push("latest")
-				}
+				dockerImage.push("latest")
 			}
 		}
 		stage('Remove Unused docker image') {
