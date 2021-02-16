@@ -27,8 +27,9 @@ pipeline {
     stage('Push docker image') {
       steps {
         script {
-          docker login docker.io
-          dockerImage.push("latest")
+          docker.withRegistry('', 'dockerhub') {
+            dockerImage.push("latest")
+          }
         }
 
       }
