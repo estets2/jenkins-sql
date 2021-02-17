@@ -15,7 +15,8 @@ pipeline {
       steps {
         script {
           dockerImage = docker.build imagename
-        }
+          dockerDatabase = docker.build dbgename
+         }
 
       }
     }
@@ -37,9 +38,15 @@ pipeline {
     stage('Run App') {
       steps {
         script {
-          dockerImage.inside {
-            sh 'python3 ./app.py'
-          }
+		
+		  withDockerNetwork{ n ->
+            dockerDatabase.withRun("--network ${n} -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
+              dockerImage.inside("--network ${n}") {
+                sh 'python3 ./app.py'
+              }
+			}
+          }		
+		
         }
       }
     }
@@ -65,6 +72,7 @@ pipeline {
   }
   environment {
     imagename = 'estets2/python-sql'
+	dbgename = 'postgres'
     dockerImage = ''
     POSTGRES_HOST = '172.17.0.3'
     POSTGRES_USER = 'docker'
