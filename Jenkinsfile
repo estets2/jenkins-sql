@@ -26,7 +26,11 @@ pipeline {
 
     stage('Run App') {
       steps {
-        sh 'python3 ./app.py'
+        script {
+          dockerImage.inside {
+            sh 'python3 ./app.py'
+          }
+        }
       }
     }
     
