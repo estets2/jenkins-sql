@@ -44,12 +44,10 @@ pipeline {
 			  sh 'docker ps'
 			  sh 'docker inspect db'
               dockerImage.inside("--name app") {
-                sh 'python3 --version'
+                sh 'python3 ./app.py'
               }
 			}
           /* } */
-		  sh 'docker ps'
-		
         }
       }
     }
@@ -75,7 +73,7 @@ pipeline {
   }
   environment {
     imageName = 'estets2/python-sql'
-	dbImageName = 'postgres:13'
+	dbImageName = 'postgres'
     dockerImage = ''
     dbImage = ''
     POSTGRES_HOST = '0.0.0.0'
