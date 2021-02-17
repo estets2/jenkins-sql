@@ -29,7 +29,7 @@ pipeline {
   		  /* withDockerNetwork{ n -> */
             dbImage.withRun("--name db  -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_DB=$POSTGRES_DB") { db ->
 			  sleep 1
-			  sh 'docker inspect db| grep IPAddress| tail 1'
+			  sh 'docker inspect db| grep IPAddress'
               dockerImage.inside("--name app") {
                 sh 'psql --version'
                 sh 'python3 --version'
