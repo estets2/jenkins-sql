@@ -56,6 +56,9 @@ pipeline {
   environment {
     imagename = 'estets2/python-sql'
     dockerImage = ''
+	POSTGRES_HOST = '172.17.0.3'
+    POSTGRES_USER = 'docker'
+    POSTGRES_PASS = 'top-sicret'
   }
   post {
     always {
