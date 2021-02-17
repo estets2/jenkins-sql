@@ -14,8 +14,8 @@ pipeline {
     stage('Building image') {
       steps {
         script {
-          dockerImage = docker.build imagename
-          dockerDatabase = docker.build dbgename
+          dockerImage = docker.build("app" $imageName)
+		  dbImage = docker.build($POSTGRES_HOST, $dbImageName)
          }
 
       }
@@ -38,10 +38,9 @@ pipeline {
     stage('Run App') {
       steps {
         script {
-		
 		  withDockerNetwork{ n ->
-            dockerDatabase.withRun("--network ${n} --ip $POSTGRES_HOST -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
-              dockerImage.inside("--network ${n} --ip $APP_HOST") {
+            dbImage.withRun("--network ${n} -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
+              dockerImage.inside("--network ${n}") {
                 sh 'python3 ./app.py'
               }
 			}
@@ -64,18 +63,18 @@ pipeline {
 
     stage('Remove Unused docker image') {
       steps {
-        sh "docker rmi $imagename:latest"
+        sh "docker rmi $imageName:latest"
       }
     }
 
 
   }
   environment {
-    imagename = 'estets2/python-sql'
-	dbgename = 'postgres'
+    imageName = 'estets2/python-sql'
+	dbImageName = 'postgres:13'
     dockerImage = ''
-    APP_HOST = '10.5.0.11'
-    POSTGRES_HOST = '10.5.0.10'
+    dbImage = ''
+    POSTGRES_HOST = 'db'
 	POSTGRES_SUBNET = '10.5.0.0/16'
     POSTGRES_USER = 'docker'
     POSTGRES_PASS = 'top-sicret'

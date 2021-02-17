@@ -4,12 +4,12 @@ from psycopg2 import Error
 
 POSTGRES_HOST = os.environ.get('POSTGRES_HOST')
 POSTGRES_USER = os.environ.get('POSTGRES_USER')
-POSTGRES_PASS = os.environ.get('POSTGRES_PASS')
+POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 
 try:
     # Connect to an existing database
     connection = psycopg2.connect(user=POSTGRES_USER,
-                                  password=POSTGRES_PASS,
+                                  password=POSTGRES_PASSWORD,
                                   host=POSTGRES_HOST,
                                   port="5432",
                                   database="docker")
