@@ -41,8 +41,7 @@ pipeline {
 		  /* --network ${n} ./app.py */
   		  /* withDockerNetwork{ n -> */
             dbImage.withRun("--name db  -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD") { db ->
-			  sh 'docker ps'
-			  sh 'docker inspect db'
+			  sh 'docker inspect db| grep IPAddress'
               dockerImage.inside("--name app") {
                 sh 'python3 ./app.py'
               }
@@ -79,7 +78,7 @@ pipeline {
     POSTGRES_HOST = '172.17.0.3'
 	POSTGRES_SUBNET = '10.5.0.0/16'
     POSTGRES_USER = 'docker'
-    POSTGRES_PASSWORD = 'top-sicret'
+    POSTGRES_PASSWORD = 'docker12'
   }
   post {
     always {
