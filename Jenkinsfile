@@ -38,9 +38,9 @@ pipeline {
     stage('Run App') {
       steps {
         script {
-		  /* --network ${n} */
+		  /* --network ${n} ./app.py */
   		  /* withDockerNetwork{ n -> */
-            dbImage.withRun("--name db  -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
+            dbImage.inside("--name db  -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
 			  sh 'ip address'
               dockerImage.inside("--name app") {
                 sh 'python3 --version'
