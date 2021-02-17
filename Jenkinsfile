@@ -15,7 +15,7 @@ pipeline {
       steps {
         script {
           dockerImage = docker.build(imageName)
-		  dbImage = docker.build(dbImageName)
+		  dbImage = docker.image(dbImageName)
          }
 
       }
@@ -39,9 +39,9 @@ pipeline {
       steps {
         script {
 		  withDockerNetwork{ n ->
-            dbImage.withRun("--name $POSTGRES_HOST --network ${n} -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
+            dbImage.withRun("--name db --network ${n} -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
 			  sh 'ip address'
-              dockerImage.inside("--network ${n}") {
+              dockerImage.inside("--name app --network ${n}") {
                 sh 'python3 ./app.py'
               }
 			}
