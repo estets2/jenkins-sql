@@ -14,8 +14,8 @@ pipeline {
     stage('Building image') {
       steps {
         script {
-          dockerImage = docker.build("app", $imageName)
-		  dbImage = docker.build($POSTGRES_HOST, $dbImageName)
+          dockerImage = docker.build("app", imageName)
+		  dbImage = docker.build(POSTGRES_HOST, dbImageName)
          }
 
       }
