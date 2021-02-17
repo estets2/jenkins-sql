@@ -41,15 +41,21 @@ pipeline {
       }
     }
 
+    stage('Run App') {
+      steps {
+        sh 'echo \'Run App\''
+      }
+    }
+
   }
-  post { 
-	always { 
-      echo 'Job well done!'
-	}
-  }
-  
   environment {
     imagename = 'estets2/python-sql'
     dockerImage = ''
+  }
+  post {
+    always {
+      echo 'Job well done!'
+    }
+
   }
 }
