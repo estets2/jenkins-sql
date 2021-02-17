@@ -3,16 +3,18 @@ import psycopg2
 from psycopg2 import Error
 
 POSTGRES_HOST = os.environ.get('POSTGRES_HOST')
+POSTGRES_PORT = os.environ.get('POSTGRES_PORT')
 POSTGRES_USER = os.environ.get('POSTGRES_USER')
 POSTGRES_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
+POSTGRES_DB = os.environ.get('POSTGRES_DB')
 
 try:
     # Connect to an existing database
     connection = psycopg2.connect(user=POSTGRES_USER,
                                   password=POSTGRES_PASSWORD,
                                   host=POSTGRES_HOST,
-                                  port="5432",
-                                  database="docker")
+                                  port=POSTGRES_PORT,
+                                  database=POSTGRES_DB)
 
     # Create a cursor to perform database operations
     cursor = connection.cursor()
