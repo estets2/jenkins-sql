@@ -42,7 +42,6 @@ pipeline {
             dbImage.withRun("--name db --network ${n} -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
 			  sh 'ip address'
               dockerImage.inside("--name app --network ${n}") {
-                sh 'ip address'
                 sh 'python3 ./app.py'
               }
 			}
