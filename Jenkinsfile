@@ -42,6 +42,12 @@ pipeline {
     }
 
   }
+  post { 
+	always { 
+      echo 'Job well done!'
+	}
+  }
+  
   environment {
     imagename = 'estets2/python-sql'
     dockerImage = ''
