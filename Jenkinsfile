@@ -76,7 +76,7 @@ pipeline {
 	dbImageName = 'postgres:13'
     dockerImage = ''
     dbImage = ''
-    POSTGRES_HOST = '172.17.0.2'
+    POSTGRES_HOST = '127.0.0.1'
 	POSTGRES_SUBNET = '10.5.0.0/16'
     POSTGRES_USER = 'docker'
     POSTGRES_PASS = 'top-sicret'
