@@ -26,7 +26,7 @@ pipeline {
 
     stage('Run App') {
       steps {
-        sh 'echo \'Run App\''
+        sh 'python3 ./app.py'
       }
     }
     

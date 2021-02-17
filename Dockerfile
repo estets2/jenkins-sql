@@ -4,3 +4,4 @@ RUN apt-get install postgresql-client python3 python3-pip -y
 RUN apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt
 COPY requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
+COPY *.py /
