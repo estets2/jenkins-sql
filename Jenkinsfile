@@ -41,7 +41,7 @@ pipeline {
 		
 		  withDockerNetwork{ n ->
             dockerDatabase.withRun("--network ${n} --ip $POSTGRES_HOST -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASS") { db ->
-              dockerImage.inside("--network ${n}") {
+              dockerImage.inside("--network ${n} --ip $APP_HOST") {
                 sh 'python3 ./app.py'
               }
 			}
@@ -74,6 +74,7 @@ pipeline {
     imagename = 'estets2/python-sql'
 	dbgename = 'postgres'
     dockerImage = ''
+    APP_HOST = '10.5.0.11'
     POSTGRES_HOST = '10.5.0.10'
 	POSTGRES_SUBNET = '10.5.0.0/16'
     POSTGRES_USER = 'docker'
