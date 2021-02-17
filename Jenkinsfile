@@ -24,6 +24,12 @@ pipeline {
       }
     }
 
+    stage('Run App') {
+      steps {
+        sh 'echo \'Run App\''
+      }
+    }
+    
     stage('Push docker image') {
       steps {
         script {
@@ -41,11 +47,6 @@ pipeline {
       }
     }
 
-    stage('Run App') {
-      steps {
-        sh 'echo \'Run App\''
-      }
-    }
 
   }
   environment {
