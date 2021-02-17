@@ -1,7 +1,7 @@
 def withDockerNetwork(Closure inner) {
   try {
     networkId = UUID.randomUUID().toString()
-    sh "docker network create ${networkId}"
+    sh "docker network create ${networkId} --subnet $POSTGRES_SUBNET"
     inner.call(networkId)
   } finally {
     sh "docker network rm ${networkId}"
@@ -74,7 +74,8 @@ pipeline {
     imagename = 'estets2/python-sql'
 	dbgename = 'postgres'
     dockerImage = ''
-    POSTGRES_HOST = '127.1.0.1'
+    POSTGRES_HOST = '10.5.0.0.1'
+	POSTGRES_SUBNET = '10.5.0.0/16'
     POSTGRES_USER = 'docker'
     POSTGRES_PASS = 'top-sicret'
   }
