@@ -27,7 +27,7 @@ pipeline {
         script {
 		  /* --network ${n}  -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD */
   		  /* withDockerNetwork{ n -> */
-            dbImage.withRun("--name db  -p 5432:5432 -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD") { db ->
+            dbImage.withRun("--name db  -p 5432:5432") { db ->
 			  sh 'docker inspect db| grep IPAddress'
               dockerImage.inside("--name app") {
                 sh 'psql --version'
