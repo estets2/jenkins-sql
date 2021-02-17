@@ -74,7 +74,7 @@ pipeline {
     imagename = 'estets2/python-sql'
 	dbgename = 'postgres'
     dockerImage = ''
-    POSTGRES_HOST = '10.5.0.1'
+    POSTGRES_HOST = '10.5.0.10'
 	POSTGRES_SUBNET = '10.5.0.0/16'
     POSTGRES_USER = 'docker'
     POSTGRES_PASS = 'top-sicret'
